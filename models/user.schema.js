@@ -2,34 +2,34 @@ import moongoose from "mongoose";
 import bcrypt from "bcryptjs";
 import crypto from "crypto";
 import JWT from "jsonwebtoken";
-import AuthRoles from "../utils/authRoles";
+import {authRoles} from "../utils";
 import { config } from "../config";
 
 const userDetails = {
-    name: {
-        type: String,
-        required: [true, "name is required"],
-        maxLength: [50, "name must be less than 50"]
-    },
-    email: {
-        type: String,
-        required: [true, "email is required"],
-        unique: true
-    },
-    password: {
-        type: String,
-        required: [true, "password is required"],
-        minLength: [8, "password must be at least 8 characters"],
-        select: false
-    },
-    role: {
-        type: String,
-        enum: Object.values(AuthRoles),
-        default: AuthRoles.USER
-    },
-    forgotPasswordToken: String,
-    forgotPasswordExpiry: Date
-}
+  name: {
+    type: String,
+    required: [true, "name is required"],
+    maxLength: [50, "name must be less than 50"],
+  },
+  email: {
+    type: String,
+    required: [true, "email is required"],
+    unique: true,
+  },
+  password: {
+    type: String,
+    required: [true, "password is required"],
+    minLength: [8, "password must be at least 8 characters"],
+    select: false,
+  },
+  role: {
+    type: String,
+    enum: Object.values(authRoles),
+    default: authRoles.USER,
+  },
+  forgotPasswordToken: String,
+  forgotPasswordExpiry: Date,
+};
 
 const userSchema = moongoose.Schema(userDetails);
 
